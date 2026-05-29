@@ -112,3 +112,4 @@ If you click Yes, the program will close, or if No, it will return you to the fi
 
 # Update
 - Added an API Key messagebox to let you input your API Key dynamically without entering it into the code.
+- Bug fixes
