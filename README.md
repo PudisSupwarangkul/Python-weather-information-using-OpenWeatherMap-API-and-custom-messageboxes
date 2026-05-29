@@ -43,7 +43,7 @@ ollama pull llama3
 ## Step 5 (Required from now on):
 Go to https://home.openweathermap.org/users/sign_up, and **create an account**. **If you already have an account**, go to https://home.openweathermap.org/api_keys, and copy the API Key.
 ## Step 6:
-Replace the API Key at the **YOURAPIKEY** text in code line 56.
+If you didn't downloaded the new version in my GitHub, <br> replace the API Key at the **YOURAPIKEY** text in code line 56. <br> Skip this step if you just downloaded the program today.
 ## Step 7 IMPORTANT!:
 Run 
 ```
@@ -109,3 +109,6 @@ If you click the red cross button, or the Cancel button, you will be asked this 
 If you click Yes, the program will close, or if No, it will return you to the first page.
 
 ***Note: All of the pictures above are in Windows 10.***
+
+# Update
+- Added API Key messagebox to let you input your API Key dynamically without entering it into the code.
