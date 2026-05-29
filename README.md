@@ -111,4 +111,4 @@ If you click Yes, the program will close, or if No, it will return you to the fi
 ***Note: All of the pictures above are in Windows 10.***
 
 # Update
-- Added API Key messagebox to let you input your API Key dynamically without entering it into the code.
+- Added an API Key messagebox to let you input your API Key dynamically without entering it into the code.
