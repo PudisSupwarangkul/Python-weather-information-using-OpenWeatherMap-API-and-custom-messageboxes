@@ -2,16 +2,24 @@ import requests
 import os
 import tkinter as tk
 import time
-from pythoncustomsgbox import CustomMessageBox
+from tkcustomessagebox import CustomMessageBox
 from datetime import datetime
-# from ollama import chat
-# from ollama import ChatResponse
+from ollama import chat
+from ollama import ChatResponse
 
 # Loop for the program.
+api_key = ""
 while True:
     root = tk.Tk()
     root.withdraw()
+    
     # Get user's input.
+    if api_key == "":
+        api_key = CustomMessageBox.customTextBoxMsg("API Key", "Please input your API Key.", "black", "white", "black", "white")
+        if api_key != "":
+            CustomMessageBox.customMsgBox("API Key", "API Key entered success! \n Please press OK to go to the app.", "black", "white", "black", "green", False)
+        else:
+            CustomMessageBox.customMsgBox("API Key Error!", "There was an error while inputting the API Key. \n Please try again. \n The app will termiante itself after you press OK.", "black", "white", "black", "red", True)
     location = CustomMessageBox.customTextBoxMsg("Location Information:", "Type exit or enter a city or talk to ai? just type ai:", "black", "white", "black", "white")
     if location is None:
         question0 = CustomMessageBox.customYesNoMsg("Question:", "Are you sure?", "black", "white", "black", "lightblue")
@@ -27,22 +35,22 @@ while True:
             continue  
             
     # Ask Ai about anything mode. (Only uncomment when you want to ask ai.)
-    # elif location.lower() == "ai":
-    #     question = CustomMessageBox.customTextBoxMsg("Question:", "What do you like to ask ai?", "black", "white", "black", "white")
-    #     if question is None:
-    #         question1 = CustomMessageBox.customYesNoMsg("Question:", "Are you sure?", "black", "white", "black", "lightblue")
-    #         if question1 is True:
-    #             break
-    #         else:
-    #             continue
-    #     answer: ChatResponse = chat(model= "llama3", messages= [
-    #         {
-    #             'role': 'user',
-    #             'content': question,
-    #         },
-    #     ])
-    #     CustomMessageBox.customMsgBoxWithScrBar("Ai's Response:", "Ai's Response:", answer.message.content, "black", "white", "black", "white", "black", False)
-    #     continue
+    elif location.lower() == "ai":
+        question = CustomMessageBox.customTextBoxMsg("Question:", "What do you like to ask ai?", "black", "white", "black", "white")
+        if question is None:
+            question1 = CustomMessageBox.customYesNoMsg("Question:", "Are you sure?", "black", "white", "black", "lightblue")
+            if question1 is True:
+                break
+            else:
+                continue
+        answer: ChatResponse = chat(model= "llama3", messages= [
+            {
+                'role': 'user',
+                'content': question,
+            },
+        ])
+        CustomMessageBox.customMsgBoxWithScrBar("Ai's Response:", "Ai's Response:", answer.message.content, "black", "white", "black", "white", "black", False)
+        continue
     location = str(location).strip("\n")
 
     measurement = CustomMessageBox.customTextBoxMsg("Measurement:", "Enter a measurement unit (metric/imperial):", "black", "white", "black", "white")
@@ -62,7 +70,7 @@ while True:
 
     # Get weather data from Openweathermap api.
     try:
-        response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&APPID=YOURAPIKEY&units={measurement}")
+        response = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&APPID={api_key}&units={measurement}")
         data = response.json()
     except (requests.exceptions.ConnectionError, ConnectionError):
         CustomMessageBox.customMsgBox("Error!", "Your Wi-Fi is currently not working. \n Please try again later. \n Exiting after you click OK...", "black", "red", "white", "red", True)
@@ -78,7 +86,7 @@ while True:
         CustomMessageBox.customMsgBox("Error!", "Try again later, or you didn't enter anything in the text boxes.", "black", "red", "white", "red", True)
         continue
     elif response.status_code == 429:
-        CustomMessageBox.customMsgBox("Error!", "Too many requests. \n Try again tommorow.", "black", "red", "white", "red", True)
+        CustomMessageBox.customMsgBox("Error!", "Too many requests. \n Try again tommorow or later in the day.", "black", "red", "white", "red", True)
         continue
 
     # Exception clause to handle user's input for the city name not found.
