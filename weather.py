@@ -16,10 +16,13 @@ while True:
     # Get user's input.
     if api_key == "":
         api_key = CustomMessageBox.customTextBoxMsg("API Key", "Please input your API Key.", "black", "white", "black", "white")
-        if api_key != "":
+        if api_key != "" and api_key != None:
             CustomMessageBox.customMsgBox("API Key", "API Key entered success! \n Please press OK to go to the app.", "black", "white", "black", "green", False)
+        elif api_key == None:
+            exit()
         else:
             CustomMessageBox.customMsgBox("API Key Error!", "There was an error while inputting the API Key. \n Please try again. \n The app will termiante itself after you press OK.", "black", "white", "black", "red", True)
+            exit()
     location = CustomMessageBox.customTextBoxMsg("Location Information:", "Type exit or enter a city or talk to ai? just type ai:", "black", "white", "black", "white")
     if location is None:
         question0 = CustomMessageBox.customYesNoMsg("Question:", "Are you sure?", "black", "white", "black", "lightblue")
